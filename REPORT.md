@@ -45,7 +45,9 @@ ready to process. As for the corner case and starvation issues, we determined
 that our queue-based design would tackle it by putting the blocked threads into
 a queue and running them in queued order, instead of not using a queue and
 leaving it up to the system to arbitrarily pick what thread would be resumed
-when a new resource became available. We used the provided sem tests in order to
+when a new resource became available. We also used a do while loop that allows
+one semaphore at a time get the resource by checking the resource count right
+before the counter is decremented. We used the provided sem tests in order to
 test our semaphores, and each time we would run all four of them to be sure that
 our implementation was stable.
 
