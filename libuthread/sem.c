@@ -78,7 +78,6 @@ int sem_down(sem_t sem)
 
 int sem_up(sem_t sem)
 {
-
 	preempt_disable();
 	if (sem == NULL)
 	{

@@ -23,11 +23,21 @@ struct timeval prev_time;
 void preempt_disable(void)
 {
 	enabled = false;
+	sigset_t mask;
+	sigemptyset(&mask);					 // Initialize the signal mask
+	sigaddset(&mask, SIGVTALRM);		 // Add SIGVTALRM to the mask
+	sigprocmask(SIG_BLOCK, &mask, NULL); // Block the signal
+	
 }
 
 void preempt_enable(void)
 {
 	enabled = true;
+	sigset_t mask;
+	sigemptyset(&mask);					   // Initialize the signal mask
+	sigaddset(&mask, SIGVTALRM);		   // Add SIGVTALRM to the mask
+	sigprocmask(SIG_UNBLOCK, &mask, NULL); // Unblock the signal
+	
 }
 
 void signal_handler()
